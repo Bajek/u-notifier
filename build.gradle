@@ -33,6 +33,6 @@ dependencies {
 
 sonarqube {
   properties {
-    sonar.projectKey: Bajek_u-notifier
+    property 'sonar.projectKey', 'Bajek_u-notifier'
   }
 }
