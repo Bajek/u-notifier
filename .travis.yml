@@ -1,6 +1,6 @@
 language: java
 jdk:
-  - openjdk
+  - openjdk11
 
 addons:
   sonarcloud:
