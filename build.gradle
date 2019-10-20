@@ -1,6 +1,7 @@
 plugins {
 	id 'org.springframework.boot' version '2.1.4.RELEASE'
 	id 'java'
+	id "org.sonarqube" version "2.7.1"
 }
 
 apply plugin: 'io.spring.dependency-management'
@@ -28,4 +29,10 @@ dependencies {
 	runtimeOnly 'mysql:mysql-connector-java'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+sonarqube {
+  properties {
+    sonar.projectKey: Bajek_u-notifier
+  }
 }
