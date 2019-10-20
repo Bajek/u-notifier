@@ -6,7 +6,6 @@ dist: bionic
 
 jdk:
   - openjdk11
-  - openjdk13
   - oraclejdk11
 
 addons:
