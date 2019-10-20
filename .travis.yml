@@ -5,10 +5,7 @@ os: linux
 dist: trusty
 jdk:
   - openjdk11
-  
-script:
-  - ./gradlew assemble
-  - ./gradlew build install
+  - openjdk13
 
 addons:
   sonarcloud:
@@ -16,5 +13,6 @@ addons:
     token:
       secure: "8e993f7d2473ea5564a5ab7aa5ead023fb35e12a"
 
-  script:
+script:
+  - ./gradlew build
   - ./gradlew sonarqube
