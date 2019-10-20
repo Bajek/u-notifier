@@ -1,0 +1,13 @@
+language: java
+jdk:
+  - oraclejdk8
+
+addons:
+  sonarcloud:
+    organization: "bajek"
+    token:
+      secure: "8e993f7d2473ea5564a5ab7aa5ead023fb35e12a"
+
+  script:
+  - ./gradlew build install
+  - ./gradlew sonarqube
