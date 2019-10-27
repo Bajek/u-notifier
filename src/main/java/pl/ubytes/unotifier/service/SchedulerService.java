@@ -2,12 +2,18 @@ package pl.ubytes.unotifier.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import pl.ubytes.unotifier.model.EasyJetDate;
 import pl.ubytes.unotifier.model.EasyJetResponse;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.Objects;
@@ -20,9 +26,18 @@ public class SchedulerService {
 
     private LocalDate lastCheckedDate = LocalDate.MIN;
 
+    private final JavaMailSender javaMailSender;
 
-    @Scheduled(fixedRate = 5000)
-    private void checkEasyJetDates() {
+    private final String[] recipients;
+
+    @Autowired
+    public SchedulerService(JavaMailSender javaMailSender, @Value("${application.notification.recipients}") String[] recipients) {
+        this.javaMailSender = javaMailSender;
+        this.recipients = recipients;
+    }
+
+    @Scheduled(fixedRateString = "PT5M")
+    private void checkEasyJetDates() throws MessagingException {
         LOGGER.info("Checking EasyJet dates");
         RestTemplate restTemplate = new RestTemplate();
         EasyJetResponse easyJetResponse = restTemplate.getForObject(URL, EasyJetResponse.class);
@@ -39,8 +54,19 @@ public class SchedulerService {
         final LocalDate lastDate = LocalDate.of(lastEasyJetDate.getYearNumber(), lastEasyJetDate.getMonthNumber(), maxDay);
 
         if (lastDate.isAfter(lastCheckedDate)) {
-            lastCheckedDate = lastDate;
             LOGGER.info("New dates has been released");
+            lastCheckedDate = lastDate;
+            MimeMessage message = javaMailSender.createMimeMessage();
+
+            MimeMessageHelper helper = new MimeMessageHelper(message, true);
+
+            helper.setTo(recipients);
+            helper.setPriority(1);
+            helper.setSubject("Easy Jet dates are available!");
+            helper.setText("Available till " + lastDate.toString() +  " go to https://www.easyjet.com");
+            javaMailSender.send(message);
+            LOGGER.info("Mail has been sent");
+
         }
 
     }

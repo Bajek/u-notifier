@@ -1,3 +1,30 @@
 logging:
   level:
-    root: DEBUG
+    root: INFO
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+spring:
+  mail:
+    host: <host>
+    username: <userName>
+    password: <password>
+    port: 587
+    properties:
+      mail:
+        transport:
+          protocol: smtp
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+        debug: true
+
+application:
+  notification:
+    recipients: <recipients>
