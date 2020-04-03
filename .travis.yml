@@ -1,19 +1,16 @@
 language: java
 install: true
-
 os: linux
 dist: bionic
-
 jdk:
-  - openjdk11
-  - oraclejdk11
-
+- openjdk11
+- oraclejdk11
 addons:
   sonarcloud:
-    organization: "bajek"
+    organization: bajek
     token:
-      secure: "8e993f7d2473ea5564a5ab7aa5ead023fb35e12a"
+      secure: CrK95lnoT3h0JzW5rJthYvDWi8MkCBTlRw9nJOZAVrwR7NELfQYpLrXks0F9xxYC0WKMHG57+Yjb+ZQIxA75TdQr7ZUjoo4D8+gcJVUZ4miW2dUaChJnWU1cIKgk8H5QL7cAbLwofYeC2ZBBD7L1O/hrrwQw4LWDpwxyaXX4V0NI4bmV+RKsZCw8bXWQZAjxiqdmf82PmwWWM7Ayp/METerXtH+4KXN097thrUgRJrsSZKjXyFtLSZpxKaRhEaAnckVh5Mhmn6uIOFrpluhSJc4/TvPIrUn3upljPg9ltLdE6wrHLNLyYnXAkXSoP9Hui5jYPB3U8uNESCfON/DLc+KYY7JpTgAw+K7TUE/+GS+ljae+xRrIPczlzurfuTsxCNdpWNQJv4M0NUZtMu9+8OfCWDpwBJxOGCRvfKOjEqd0qPFUg03mc6aQm9KXQnzeFbS8UrBCIRFqbk7JL9tkjRcg2Y/gLMNYYCzU7f6DL48AudW10CuG8xEc+dNdrLELIadPVPEGtB9qe/G2bwWMR73ZsMslo2vSzYVVwFNQdu3x767QER46m/+SjKTMHtg8E+5cT9OsT2BAnXmrhNzVdFGIyGrm9ZdY0K1WV5HiEHL2s3J9PD6R/JcRbAfrdyCdgF/G3OMIE6/i5u6UP2YWkrI5dOJ/YSLuCyw1IpG0oeo=
 
 script:
-  - ./gradlew build
-  - ./gradlew sonarqube
+- "./gradlew build"
+- "./gradlew sonarqube"
